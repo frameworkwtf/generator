@@ -1,0 +1,8 @@
+#!/usr/bin/env php
+<?php
+require __DIR__.'/../src/Helper/File.php';
+
+require \Wtf\Generator\Helper\File::getAutoload();
+
+$app = new \Wtf\Generator\Application;
+$app->run();

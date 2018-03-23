@@ -1,0 +1,17 @@
+{
+    "bin": ["bin/wtf"],
+    "name": "wtf/generator",
+    "type": "library",
+    "description": "Generator for WTF Framework",
+    "license": "MIT",
+    "prefer-stable": true,
+
+    "require": {
+        "symfony/console": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wtf\\Generator\\": "src/"
+        }
+    }
+}
