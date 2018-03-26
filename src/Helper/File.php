@@ -62,6 +62,10 @@ class File
 
     public static function save(string $file, string $content)
     {
+        $dir = dirname($file);
+        if(!is_dir($dir)) {
+            mkdir($dir, 0700, true);
+        }
         file_put_contents($file, $content);
     }
 }
