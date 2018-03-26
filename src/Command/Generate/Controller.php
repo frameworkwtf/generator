@@ -19,9 +19,10 @@ class Controller extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $name = ucfirst(strtolower($input->getArgument('name')));
+        $name_lower = strtolower($input->getArgument('name'));
+        $name = ucfirst($name_lower);
         $path = File::getGeneratorDir().'../../../src/Controller/'.$name.'.php';
-        File::save($path, Template::render('controller', ['name' => $name]));
+        File::save($path, Template::render('controller', ['name' => $name, 'name_lower' => $name_lower]));
         $output->writeln('Controller saved to '.$path);
     }
 }

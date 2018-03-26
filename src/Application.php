@@ -9,10 +9,12 @@ class Application extends \Symfony\Component\Console\Application
         parent::__construct('WTF framework generator');
 
         $this->addCommands([
+            new Command\Generate\CRUD,
             new Command\Generate\Entity,
             new Command\Generate\Migration,
             new Command\Generate\Seed,
             new Command\Generate\Controller,
+            new Command\Generate\Route,
         ]);
     }
 }
