@@ -22,6 +22,6 @@ class Route extends Command
         $name = strtolower($input->getArgument('name'));
         $path = File::getGeneratorDir().'../../../config/routes/'.$name.'.php';
         File::save($path, Template::render('route'));
-        $output->writeln('Route saved to '.$path);
+        $output->writeln('Route saved to '.File::realpath($path));
     }
 }

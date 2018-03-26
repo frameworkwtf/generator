@@ -24,6 +24,6 @@ class Entity extends Command
         $table = strtolower($input->getArgument('table') ?? $name.'s');
         $path = File::getGeneratorDir().'../../../src/Entity/'.$name.'.php';
         File::save($path, Template::render('entity', ['name' => $name, 'table' => $table]));
-        $output->writeln('Entity saved to '.$path);
+        $output->writeln('Entity saved to '.File::realpath($path));
     }
 }

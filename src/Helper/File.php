@@ -55,6 +55,11 @@ class File
         return [];
     }
 
+    public static function realpath(string $path): string
+    {
+        return str_replace(getcwd(), '.', realpath($path));
+    }
+
     public static function save(string $file, string $content)
     {
         file_put_contents($file, $content);

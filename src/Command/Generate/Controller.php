@@ -23,6 +23,6 @@ class Controller extends Command
         $name = ucfirst($name_lower);
         $path = File::getGeneratorDir().'../../../src/Controller/'.$name.'.php';
         File::save($path, Template::render('controller', ['name' => $name, 'name_lower' => $name_lower]));
-        $output->writeln('Controller saved to '.$path);
+        $output->writeln('Controller saved to '.File::realpath($path));
     }
 }
