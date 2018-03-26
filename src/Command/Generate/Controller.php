@@ -25,7 +25,7 @@ class Controller extends Command
     {
         $name_lower = strtolower($input->getArgument('name'));
         $name = ucfirst($name_lower);
-        $path = File::getGeneratorDir().'../../../src/Controller/'.$name.'.php';
+        $path = File::getAppDir().'src/Controller/'.$name.'.php';
         File::save($path, Template::render('controller', ['name' => $name, 'name_lower' => $name_lower]));
         $output->writeln('Controller saved to '.File::realpath($path));
     }

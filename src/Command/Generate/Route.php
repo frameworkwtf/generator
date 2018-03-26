@@ -24,7 +24,7 @@ class Route extends Command
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $name = strtolower($input->getArgument('name'));
-        $path = File::getGeneratorDir().'../../../config/routes/'.$name.'.php';
+        $path = File::getAppDir().'config/routes/'.$name.'.php';
         File::save($path, Template::render('route'));
         $output->writeln('Route saved to '.File::realpath($path));
     }

@@ -17,6 +17,16 @@ class File
     }
 
     /**
+     * Get app dir.
+     *
+     * @return string
+     */
+    public static function getAppDir(): string
+    {
+        return self::getGeneratorDir().'../../../';
+    }
+
+    /**
      * Get templates dir.
      *
      * @return string
