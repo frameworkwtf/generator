@@ -30,6 +30,16 @@ class CRUD extends Command
                 'name' => ('migration' === $element) ? 'Init'.ucfirst(strtolower($input->getArgument('name'))) : $input->getArgument('name'),
             ];
             $item->run(new ArrayInput($arguments), $output);
+
+            if (in_array($element, ['controller', 'entity'], true)) {
+                $test = $this->getApplication()->find('generate:test');
+                $arguments = [
+                    'command' => 'generate:test',
+                    'name' => $input->getArgument('name'),
+                    'type' => $element,
+                ];
+                $test->run(new ArrayInput($arguments), $output);
+            }
         }
     }
 }

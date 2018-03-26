@@ -11,7 +11,8 @@ Can generate following:
 * Migration
 * Seed
 * Route
-* CRUD (Controller, Entity, Migration, Route with selected name in one command)
+* Test
+* CRUD (Controller, Entity, Migration, Route, Test with selected name in one command)
 
 ### NOTE
 

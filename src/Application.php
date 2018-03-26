@@ -17,6 +17,7 @@ class Application extends \Symfony\Component\Console\Application
             new Command\Generate\Seed(),
             new Command\Generate\Controller(),
             new Command\Generate\Route(),
+            new Command\Generate\Test(),
         ]);
     }
 }
