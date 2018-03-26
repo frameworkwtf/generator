@@ -1,15 +1,19 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Wtf\Generator\Command\Generate;
-use Wtf\Generator\Helper\File;
-use Wtf\Generator\Helper\Template;
+
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
+use Wtf\Generator\Helper\File;
+use Wtf\Generator\Helper\Template;
 
 class Entity extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('generate:entity')
              ->setDescription('Generate new entity')
@@ -18,7 +22,7 @@ class Entity extends Command
              ->addArgument('table', InputArgument::OPTIONAL, 'Database table name. Default is <name>s');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $name = ucfirst(strtolower($input->getArgument('name')));
         $table = strtolower($input->getArgument('table') ?? $name.'s');

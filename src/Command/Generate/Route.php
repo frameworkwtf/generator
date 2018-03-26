@@ -1,15 +1,19 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Wtf\Generator\Command\Generate;
-use Wtf\Generator\Helper\File;
-use Wtf\Generator\Helper\Template;
+
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
+use Wtf\Generator\Helper\File;
+use Wtf\Generator\Helper\Template;
 
 class Route extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('generate:route')
              ->setDescription('Generate new route')
@@ -17,7 +21,7 @@ class Route extends Command
              ->addArgument('name', InputArgument::REQUIRED, 'Route group name');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $name = strtolower($input->getArgument('name'));
         $path = File::getGeneratorDir().'../../../config/routes/'.$name.'.php';

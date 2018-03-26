@@ -1,10 +1,14 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Wtf\Generator\Helper;
 
 class File
 {
     /**
-     * Get root dir of generator
+     * Get root dir of generator.
+     *
      * @return string
      */
     public static function getGeneratorDir(): string
@@ -13,7 +17,8 @@ class File
     }
 
     /**
-     * Get templates dir
+     * Get templates dir.
+     *
      * @return string
      */
     public static function getTemplatesDir(): string
@@ -22,21 +27,23 @@ class File
     }
 
     /**
-     * Get composer autoload file
-     * @return string|null
+     * Get composer autoload file.
+     *
+     * @return null|string
      */
     public static function getAutoload(): ?string
     {
         $files = [
             self::getGeneratorDir().'/../../autoload.php', //if used as library
-            self::getGeneratorDir().'/vendor/autoload.php' //if used standalone
+            self::getGeneratorDir().'/vendor/autoload.php', //if used standalone
         ];
 
-        foreach($files as $file) {
-            if(file_exists($file)) {
+        foreach ($files as $file) {
+            if (file_exists($file)) {
                 return $file;
             }
         }
+
         return null;
     }
 
@@ -48,8 +55,8 @@ class File
     public static function getConfig(string $name): array
     {
         $path = self::getGeneratorDir().'../../../config/'.$name.'.php'; //@todo dynamically get config dir from wtf
-        if(file_exists($path)) {
-            return include($path);
+        if (file_exists($path)) {
+            return include $path;
         }
 
         return [];
@@ -60,10 +67,10 @@ class File
         return str_replace(getcwd(), '.', realpath($path));
     }
 
-    public static function save(string $file, string $content)
+    public static function save(string $file, string $content): void
     {
         $dir = dirname($file);
-        if(!is_dir($dir)) {
+        if (!is_dir($dir)) {
             mkdir($dir, 0700, true);
         }
         file_put_contents($file, $content);
