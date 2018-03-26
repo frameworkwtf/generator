@@ -23,7 +23,17 @@ class File
      */
     public static function getAppDir(): string
     {
-        return self::getGeneratorDir().'../../../';
+        return Config::get('paths.app', self::getGeneratorDir().'../../../');
+    }
+
+    /**
+     * Get app config dir.
+     *
+     * @return string
+     */
+    public function getConfigDir(): string
+    {
+        return Config::get('paths.config', self::getAppDir().'config/');
     }
 
     /**
@@ -36,53 +46,72 @@ class File
         return self::getGeneratorDir().'templates/';
     }
 
-    /**
-     * Get composer autoload file.
-     *
-     * @return null|string
-     */
-    public static function getAutoload(): ?string
+    public static function getPrettyPath(string $path): string
     {
-        $files = [
-            self::getGeneratorDir().'/../../autoload.php', //if used as library
-            self::getGeneratorDir().'/vendor/autoload.php', //if used standalone
-        ];
+        $path = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
+        $parts = array_filter(explode(DIRECTORY_SEPARATOR, $path), 'strlen');
+        $absolutes = [];
+        foreach ($parts as $part) {
+            if ('.' === $part) {
+                continue;
+            }
+            if ('..' === $part) {
+                array_pop($absolutes);
+            } else {
+                $absolutes[] = $part;
+            }
+        }
+        $path = implode(DIRECTORY_SEPARATOR, $absolutes);
 
-        foreach ($files as $file) {
-            if (file_exists($file)) {
-                return $file;
+        return str_replace(getcwd(), '.', '/'.$path);
+    }
+
+    /**
+     * Get pretty path for file, based on type.
+     *
+     * @param string $type File type (eg: controller, entity, etc)
+     * @param string $name File name (eg: User)
+     * @param string $ext  File extension, default: php
+     *
+     * @return string
+     */
+    public static function getPath(string $type, string $name, string $ext = 'php'): string
+    {
+        $path = Config::get('paths.'.strtolower($type));
+        if (!$path) {
+            switch (strtolower($type)) {
+            case 'controller':
+            case 'entity':
+                $path = self::getAppDir().'src/'.ucfirst($type).'/';
+                break;
+            case 'route':
+                $path = self::getAppDir().'config/routes/';
+                break;
+            case 'test':
+                $path = self::getAppDir().'tests/';
+                break;
             }
         }
 
-        return null;
+        return self::getPrettyPath($path.$name.'.'.$ext);
     }
 
-    public static function getConfigDir(): string
-    {
-        return self::getGeneratorDir().'../../../config/'; //@todo dynamically get config dir from wtf
-    }
-
-    public static function getConfig(string $name): array
-    {
-        $path = self::getGeneratorDir().'../../../config/'.$name.'.php'; //@todo dynamically get config dir from wtf
-        if (file_exists($path)) {
-            return include $path;
-        }
-
-        return [];
-    }
-
-    public static function realpath(string $path): string
-    {
-        return str_replace(getcwd(), '.', realpath($path));
-    }
-
-    public static function save(string $file, string $content): void
+    /**
+     * Save file and return file path.
+     *
+     * @param string $file
+     * @param string $content
+     *
+     * @return string
+     */
+    public static function save(string $file, string $content): string
     {
         $dir = dirname($file);
         if (!is_dir($dir)) {
             mkdir($dir, 0700, true);
         }
         file_put_contents($file, $content);
+
+        return $file;
     }
 }

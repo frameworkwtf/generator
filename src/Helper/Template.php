@@ -22,4 +22,12 @@ class Template
 
         return strtr($tpl, $vars);
     }
+
+    /**
+     * Render template and save it to file.
+     */
+    public static function renderSave(string $type, string $name, array $vars = []): string
+    {
+        return File::save(File::getPath($type, $name), self::render($type, $vars));
+    }
 }

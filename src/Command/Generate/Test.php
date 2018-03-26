@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Wtf\Generator\Command\Generate;
 
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Wtf\Generator\Helper\File;
+use Wtf\Generator\Command;
 use Wtf\Generator\Helper\Template;
 
 class Test extends Command
@@ -20,10 +19,12 @@ class Test extends Command
              ->setHelp('This command allows you to generate unit tests')
              ->addArgument('name', InputArgument::REQUIRED, 'Test name')
              ->addArgument('type', InputArgument::OPTIONAL, 'Test type (subdir)');
+        parent::configure();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
+        parent::execute($input, $output);
         $name = ucfirst(strtolower($input->getArgument('name')));
         $type = '';
         $namespace = '';
@@ -33,8 +34,6 @@ class Test extends Command
             $namespace = '\\'.$type;
             $subdir = '/..';
         }
-        $path = File::getAppDir().'tests/'.$type.'/'.$name.'Test.php';
-        File::save($path, Template::render('test', ['name' => $name, 'type' => $type, 'namespace' => $namespace, 'subdir' => $subdir]));
-        $output->writeln('Test saved to '.File::realpath($path));
+        $output->writeln('Test saved to '.Template::renderSave('test', $name, ['name' => $name, 'type' => $type, 'namespace' => $namespace, 'subdir' => $subdir]));
     }
 }

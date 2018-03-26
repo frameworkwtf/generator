@@ -14,7 +14,26 @@ Can generate following:
 * Test
 * CRUD (Controller, Entity, Migration, Route, Test with selected name in one command)
 
+### Config
+
+Place `generator.php` into any place
+
+```php
+<?php
+$app = dirname(__DIR__).'/';
+return [
+    'paths' => [
+        'app' => $app,
+        'controller' => $app.'src/Controller/',
+        'entity' => $app.'src/Entity/',
+        'test' => $app.'tests/',
+        'route' => $app.'config/routes/',
+    ],
+];
+```
+
+Run generator with: `bin/wtf generate:crud hello -c /path/to/generator-config.php`
+
 ### NOTE
 
 1. **Generator is experiment project** (yet)
-2. Current implementation supports only [wtf/skeleton](https://github.com/frameworkwtf/skeleton) file structure
