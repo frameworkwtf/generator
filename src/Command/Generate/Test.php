@@ -25,12 +25,12 @@ class Test extends Command
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         parent::execute($input, $output);
-        $name = ucfirst(strtolower($input->getArgument('name')));
+        $name = \ucfirst(\strtolower($input->getArgument('name')));
         $type = '';
         $namespace = '';
         $subdir = '';
         if ($input->getArgument('type')) {
-            $type = ucfirst(strtolower($input->getArgument('type')));
+            $type = \ucfirst(\strtolower($input->getArgument('type')));
             $namespace = '\\'.$type;
             $subdir = '/..';
         }

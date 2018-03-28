@@ -24,8 +24,8 @@ class Controller extends Command
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         parent::execute($input, $output);
-        $name_lower = strtolower($input->getArgument('name'));
-        $name = ucfirst($name_lower);
+        $name_lower = \strtolower($input->getArgument('name'));
+        $name = \ucfirst($name_lower);
         $output->writeln('Controller saved to '.Template::renderSave('controller', $name, ['name' => $name, 'name_lower' => $name_lower]));
     }
 }

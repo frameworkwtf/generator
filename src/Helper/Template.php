@@ -14,13 +14,13 @@ class Template
      */
     public static function render(string $name, array $vars = []): string
     {
-        $tpl = implode('', file(File::getTemplatesDir().$name.'.tpl'));
+        $tpl = \implode('', \file(File::getTemplatesDir().$name.'.tpl'));
         foreach ($vars as $field => $value) {
             $vars['{{'.$field.'}}'] = $value;
             unset($vars[$field]);
         }
 
-        return strtr($tpl, $vars);
+        return \strtr($tpl, $vars);
     }
 
     /**

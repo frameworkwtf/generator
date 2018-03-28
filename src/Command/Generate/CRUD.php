@@ -29,12 +29,12 @@ class CRUD extends Command
             $item = $this->getApplication()->find('generate:'.$element);
             $arguments = [
                 'command' => 'generate:'.$element,
-                'name' => ('migration' === $element) ? 'Init'.ucfirst(strtolower($input->getArgument('name'))) : $input->getArgument('name'),
+                'name' => ('migration' === $element) ? 'Init'.\ucfirst(\strtolower($input->getArgument('name'))) : $input->getArgument('name'),
                 '--configuration' => $input->getOption('configuration'),
             ];
             $item->run(new ArrayInput($arguments), $output);
 
-            if (in_array($element, ['controller', 'entity'], true)) {
+            if (\in_array($element, ['controller', 'entity'], true)) {
                 $test = $this->getApplication()->find('generate:test');
                 $arguments = [
                     'command' => 'generate:test',

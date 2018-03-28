@@ -25,8 +25,8 @@ class Entity extends Command
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         parent::execute($input, $output);
-        $name = ucfirst(strtolower($input->getArgument('name')));
-        $table = strtolower($input->getArgument('table') ?? $name.'s');
+        $name = \ucfirst(\strtolower($input->getArgument('name')));
+        $table = \strtolower($input->getArgument('table') ?? $name.'s');
         $output->writeln('Entity saved to '.Template::renderSave('entity', $name, ['name' => $name, 'table' => $table]));
     }
 }

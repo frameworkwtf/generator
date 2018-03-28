@@ -48,22 +48,22 @@ class File
 
     public static function getPrettyPath(string $path): string
     {
-        $path = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
-        $parts = array_filter(explode(DIRECTORY_SEPARATOR, $path), 'strlen');
+        $path = \str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
+        $parts = \array_filter(\explode(DIRECTORY_SEPARATOR, $path), 'strlen');
         $absolutes = [];
         foreach ($parts as $part) {
             if ('.' === $part) {
                 continue;
             }
             if ('..' === $part) {
-                array_pop($absolutes);
+                \array_pop($absolutes);
             } else {
                 $absolutes[] = $part;
             }
         }
-        $path = implode(DIRECTORY_SEPARATOR, $absolutes);
+        $path = \implode(DIRECTORY_SEPARATOR, $absolutes);
 
-        return str_replace(getcwd(), '.', '/'.$path);
+        return \str_replace(\getcwd(), '.', '/'.$path);
     }
 
     /**
@@ -77,12 +77,12 @@ class File
      */
     public static function getPath(string $type, string $name, string $ext = 'php'): string
     {
-        $path = Config::get('paths.'.strtolower($type));
+        $path = Config::get('paths.'.\strtolower($type));
         if (!$path) {
-            switch (strtolower($type)) {
+            switch (\strtolower($type)) {
             case 'controller':
             case 'entity':
-                $path = self::getAppDir().'src/'.ucfirst($type).'/';
+                $path = self::getAppDir().'src/'.\ucfirst($type).'/';
                 break;
             case 'route':
                 $path = self::getAppDir().'config/routes/';
@@ -106,11 +106,11 @@ class File
      */
     public static function save(string $file, string $content): string
     {
-        $dir = dirname($file);
-        if (!is_dir($dir)) {
-            mkdir($dir, 0700, true);
+        $dir = \dirname($file);
+        if (!\is_dir($dir)) {
+            \mkdir($dir, 0700, true);
         }
-        file_put_contents($file, $content);
+        \file_put_contents($file, $content);
 
         return $file;
     }

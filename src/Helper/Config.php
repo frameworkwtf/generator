@@ -19,7 +19,7 @@ class Config
      */
     public static function get(string $key, $default = null)
     {
-        $keys = explode('.', $key);
+        $keys = \explode('.', $key);
         if (!self::$config) {
             self::$config = include self::$file;
         }
@@ -27,7 +27,7 @@ class Config
         if (!$keys) {
             return $group;
         }
-        $total = count($keys);
+        $total = \count($keys);
         foreach ($keys as $i => $key) {
             if (isset($group[$key])) {
                 if ($i === $total - 1) {

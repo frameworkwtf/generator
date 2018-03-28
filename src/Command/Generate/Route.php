@@ -24,7 +24,7 @@ class Route extends Command
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         parent::execute($input, $output);
-        $name = strtolower($input->getArgument('name'));
+        $name = \strtolower($input->getArgument('name'));
         $output->writeln('Route saved to '.Template::renderSave('route', $name));
     }
 }
