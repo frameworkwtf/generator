@@ -12,7 +12,7 @@ class {{name}} extends \App\Controller
     {
         $collection = $this->entity('{{name_lower}}')->loadAll($this->filters ?? [], true)->all();
 
-        return $this->response->withJson($collection);
+        return $this->json($collection, 200);
     }
 
     public function viewAction(): ResponseInterface
@@ -23,7 +23,7 @@ class {{name}} extends \App\Controller
         }
         $entity = $this->entity('{{name_lower}}')->load($id);
 
-        return $this->response->withJson($entity->getData());
+        return $this->json([$entity->getData()]);
     }
 
     public function editAction(): ResponseInterface
@@ -37,12 +37,12 @@ class {{name}} extends \App\Controller
         $entity->setData($data);
         $errors = $entity->validate();
         if($errors) {
-            return $this->response->withJson($errors, 400);
+            return $this->json(['error' => ['fields' => $errors]], 400);
         }
 
         $entity->save(false);
 
-        return $this->response->withJson(['id' => $entity->getId()]);
+        return $this->json(['id' => $entity->getId()]);
     }
 
     public function createAction(): ResponseInterface
@@ -51,11 +51,11 @@ class {{name}} extends \App\Controller
         $entity = $this->entity('{{name_lower}}')->setData($data);
         $errors = $entity->validate();
         if($errors) {
-            return $this->response->withJson($errors, 400);
+            return $this->json(['error' => ['fields' => $errors]], 400);
         }
         $entity->save(false);
 
-        return $this->response->withJson(['id' => $entity->getId()]);
+        return $this->json(['id' => $entity->getId()]);
     }
 
     public function deleteAction(): ResponseInterface
@@ -67,6 +67,6 @@ class {{name}} extends \App\Controller
         $entity = $this->entity('{{name_lower}}')->load($id);
         $entity->delete();
 
-        return $this->response->withJson(['id' => $entity->getId()]);
+        return $this->json(['id' => $entity->getId()]);
     }
 }
