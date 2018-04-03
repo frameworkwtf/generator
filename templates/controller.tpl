@@ -40,7 +40,7 @@ class {{name}} extends \App\Controller
             return $this->json(['error' => ['fields' => $errors]], 400);
         }
 
-        $entity->save(false);
+        $entity->save();
 
         return $this->json(['id' => $entity->getId()]);
     }
@@ -53,7 +53,7 @@ class {{name}} extends \App\Controller
         if($errors) {
             return $this->json(['error' => ['fields' => $errors]], 400);
         }
-        $entity->save(false);
+        $entity->save();
 
         return $this->json(['id' => $entity->getId()]);
     }
