@@ -31,7 +31,7 @@ class {{name}} extends \App\Controller
         $data = $this->request->getParsedBody();
         $entity = $this->entity('{{name_lower}}')->load($data['id'] ?? null);
         if(!$entity->getId()) {
-            return $this->notFoundHandler($this->request, $this->response);
+            return $this->notFoundHandler->__invoke($this->request, $this->response);
         }
 
         $entity->setData($data);
@@ -62,7 +62,7 @@ class {{name}} extends \App\Controller
     {
         $id = $this->request->getAttribute('id');
         if(!$id) {
-            return $this->notFoundHandler($this->request, $this->response);
+            return $this->notFoundHandler->__invoke($this->request, $this->response);
         }
         $entity = $this->entity('{{name_lower}}')->load($id);
         $entity->delete();
